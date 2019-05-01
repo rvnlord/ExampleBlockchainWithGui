@@ -22,7 +22,7 @@ There is also a price hidden inside the app so you can win some money if you can
 * Transaction Pool and real time synchronization of transaction data
 * Full GUI Wallet with GUI for HTTP API testing, sending transactions, mining, generating wallets, importing private keys, transaction history and blockchain explorer
 * Comprehensive Unit Tests
-* Verbose error and debug log for those who'd like to implemeent blockchain for theemselves
+* Verbose error and debug log for those who'd like to implement blockchain for themselves
 
 ### Next steps
 
