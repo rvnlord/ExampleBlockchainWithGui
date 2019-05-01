@@ -26,7 +26,7 @@ There is also a price hidden inside the app so you can win some money if you can
 
 ### Next steps
 
-* Create Blockchain store (for now eveerything happens in memory)
+* Create Blockchain store (for now everything happens in memory)
 * Build peer search engine
 
 ### Afterword
