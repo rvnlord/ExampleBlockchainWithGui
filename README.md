@@ -9,7 +9,7 @@
 
 There is also a price hidden inside the app so you can win some money if you can solve the puzzle!
    
-### Functionality:
+### Features:
 
 * Functional example Blockchain implemented in modern, object oriented, strongly typed and test driven manner
 * Functional example Cryptocurrency
