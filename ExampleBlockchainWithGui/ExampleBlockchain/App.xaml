@@ -1,0 +1,27 @@
+﻿<Application x:Class="BlockchainApp.App"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:local="clr-namespace:BlockchainApp"
+             StartupUri="Source/WIndows/MainWindow.xaml">
+    <Application.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Controls.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Fonts.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Colors.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Accents/Indigo.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Accents/BaseDark.xaml" />
+
+                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Clean/Clean.xaml" />
+
+                <ResourceDictionary Source="Themes/MetroDark/MetroDark.Styles.xaml" />
+                <ResourceDictionary Source="Themes/MetroDark/MetroDark.xamGauges.xaml"/>
+                <ResourceDictionary Source="Themes/MetroDark/MetroDark.xamEditors.xaml"/>
+
+                <!-- do modyfikacji styli -->
+
+                <ResourceDictionary Source="/Themes/CustomStyle.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Application.Resources>
+</Application>
