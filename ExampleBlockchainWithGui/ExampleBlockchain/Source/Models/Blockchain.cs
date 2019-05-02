@@ -96,17 +96,14 @@ namespace BlockchainApp.Source.Models
                     }
                     else
                     {
-                        if (!transaction.IsValid())
-                        {
-                            OnInformationSending("Invalid transaction");
+                        if (!transaction.IsValid()) // logged inside is valid
                             return false;
-                        }
 
                         var balance = CalculateAddressBalanceAtBlock(transaction.Input.Address, chain, i);
 
                         if (transaction.Input.Amount != balance)
                         {
-                            OnInformationSending("Invalid input amount");
+                            OnInformationSending($"Invalid input amount (transaction.Input.Amount {transaction.Input.Amount} != {balance} balance)");
                             return false;
                         } // Identical transaction can't appear twice because I am using a dictionary
                     }

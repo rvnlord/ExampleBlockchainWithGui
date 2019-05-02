@@ -8,6 +8,7 @@ using BlockchainApp.Source.Common.Utils.UtilClasses;
 using BlockchainApp.Source.Models.ViewModels;
 using static BlockchainApp.Source.Common.Utils.CryptoUtils;
 using static BlockchainApp.Source.Config;
+using LogLevel = NLog.LogLevel;
 
 namespace BlockchainApp.Source.Models.Wallets
 {
@@ -150,13 +151,21 @@ namespace BlockchainApp.Source.Models.Wallets
 
             if (Input?.Amount != outputTotal)
             {
-                OnInformationSending($"Invalid transaction from {Input?.Address ?? "-"}");
+                var msgInvalidTransaction = 
+                    $"Invalid transaction from {Input?.Address ?? "-"} (Input?.Amount {Input?.Amount.ToString() ?? "null"} != {outputTotal} outputTotal)\n" +
+                    $"Transaction JSON: {this.JsonSerialize()}";
+                _logger.Log(LogLevel.Error, msgInvalidTransaction);
+                OnInformationSending(msgInvalidTransaction);
                 return false;
             }
 
             if(!Input.Verify(Hash()))
             {
-                OnInformationSending($"Invalid signature from {Input.Address}");
+                var msgInvalidTransaction = 
+                    $"Invalid signature from {Input.Address}\n" +
+                    $"Transaction JSON: {this.JsonSerialize()}";
+                _logger.Log(LogLevel.Error, msgInvalidTransaction);
+                OnInformationSending(msgInvalidTransaction);
                 return false;
             }
 
