@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.Linq;
 using System.Reflection;
 using System.Windows;
+using BlockchainApp.Source.Common.Extensions;
 
 namespace BlockchainApp.Source.Common.Utils
 {
@@ -38,19 +39,16 @@ namespace BlockchainApp.Source.Common.Utils
 
         private static void BuildEventFields(Type t, List<FieldInfo> lst)
         {
-            foreach (var ei in t.GetEvents(AllBindings))
+            var events = t.GetEvents(AllBindings);
+            foreach (var ei in events)
             {
                 var dt = ei.DeclaringType;
-                var fi = dt?.GetField(ei.Name, AllBindings);
+                var eventFields = dt?.GetFields(AllBindings).Where(f =>
+                    f.Name.In(ei.Name + "Event", ei.Name) ||
+                    f.FieldType.FullName?.ContainsAny($".{ei.Name}Args,", $".{ei.Name}EventArgs,") == true).ToArray();
 
-                if (fi != null)
-                    lst.Add(fi);
-                else
-                {
-                    var fi2 = dt?.GetField(ei.Name + "Event", AllBindings);
-                    if (fi2 != null)
-                        lst.Add(fi2);
-                }
+                if (eventFields != null)
+                    lst.AddRange(eventFields);
             }
         }
 
@@ -65,7 +63,7 @@ namespace BlockchainApp.Source.Common.Utils
 
             foreach (var fi in eventFields)
             {
-                if (EventName != "" && (string.Compare(EventName, fi.Name, StringComparison.OrdinalIgnoreCase) != 0 && string.Compare(EventName + "Event", fi.Name, StringComparison.OrdinalIgnoreCase) != 0))
+                if (EventName.IsNullOrWhiteSpace() || !EventName.Remove("Event").In(fi.Name.Remove("Event")) && fi.FieldType.FullName?.ContainsAny($".{EventName}Args,", $".{EventName}EventArgs,") != true)
                     continue;
 
                 if (fi.FieldType == typeof(RoutedEvent))
