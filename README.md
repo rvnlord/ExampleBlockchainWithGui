@@ -30,7 +30,7 @@ There is also a price hidden inside the app so you can win some money if you can
 * Build peer search engine
 
 ### Afterword
-This serves as a proof that blockchain and cryptocurrency can be implemented in .NET and that it can be implemeented by me.
+This serves as a proof that blockchain and cryptocurrency can be implemented in .NET and that it can be implemented by me.
 
 If you are looking to hire me please make sure to check out this project first.
 
