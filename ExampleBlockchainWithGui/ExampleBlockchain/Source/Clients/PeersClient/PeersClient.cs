@@ -92,7 +92,7 @@ namespace BlockchainApp.Source.Clients.PeersClient
 
             request.AddHeader("Content-Type", "application/json");
             request.AddHeader("Accept", "application/json");
-            request.AddHeader("User-Agent", "cs-idex");
+            request.AddHeader("User-Agent", "cs-p2p-blockchain");
 
             if (parameters?.Any() == true)
             {
