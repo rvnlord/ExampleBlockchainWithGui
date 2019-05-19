@@ -16,11 +16,8 @@
                 <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Clean/Clean.xaml" />
 
                 <ResourceDictionary Source="Themes/MetroDark/MetroDark.Styles.xaml" />
-                <themes:PrimitivesMetroDark />
                 <ResourceDictionary Source="Themes/MetroDark/MetroDark.xamGauges.xaml"/>
                 <ResourceDictionary Source="Themes/MetroDark/MetroDark.xamEditors.xaml"/>
-
-                <!-- do modyfikacji styli -->
 
                 <ResourceDictionary Source="/Themes/CustomStyle.xaml" />
             </ResourceDictionary.MergedDictionaries>
