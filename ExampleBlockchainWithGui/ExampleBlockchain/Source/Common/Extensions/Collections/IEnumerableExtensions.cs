@@ -61,7 +61,7 @@ namespace BlockchainApp.Source.Common.Extensions.Collections
 
         public static string ToStringDelimitedBy<T>(this IEnumerable<T> enumerable, string strBetween = "")
         {
-            return String.Join(strBetween, enumerable);
+            return string.Join(strBetween, enumerable);
         }
 
         public static string JoinAsString<T>(this IEnumerable<T> enumerable, string strBetween = "")

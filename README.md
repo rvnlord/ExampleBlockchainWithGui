@@ -2,10 +2,10 @@
 
 ### Download:
 
-[![Download](https://img.shields.io/badge/Download-BlockchainApp--v1.0.exe-blue.svg)](https://github.com/rvnlord/ExampleBlockchainWithGui/releases/download/v1.0/BlockchainApp-v1.0.exe)
-![SHA256](https://img.shields.io/badge/SHA256-D2318AD8C12E950CD1D33C516719BD3A1EA2FBC07C0C1843BFEF3B40C3B59907-darkgreen.svg)
+[![Download](https://img.shields.io/badge/Dwonload-BlockchainApp----v1.01.exe-darkblue)](https://github.com/rvnlord/ExampleBlockchainWithGui/releases/download/v1.01/BlockchainApp-v1.01.exe)
+![SHA256](https://img.shields.io/badge/SHA256-645031BF0BD379B677540D5238906E84A483E21931C304B49F2590B8FC5C2CAA-darkgreen.svg)
 
-   ![Interface](/Images/2019-05-01_215835.png?raw=true)
+   ![Interface](/Images/2019-07-28_193250.png?raw=true)
 
 There is also a price hidden inside the app so you can win some money if you can solve the puzzle!
    

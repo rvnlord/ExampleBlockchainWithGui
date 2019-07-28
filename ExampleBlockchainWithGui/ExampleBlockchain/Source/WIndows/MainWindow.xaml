@@ -6,8 +6,6 @@
   xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
   xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
   xmlns:controls="clr-namespace:BlockchainApp.Source.Controls"
-  xmlns:ig="http://schemas.infragistics.com/xaml"
-  xmlns:ige="http://infragistics.com/Editors"
   xmlns:vm="clr-namespace:BlockchainApp.Source.Models.ViewModels"
   x:Class="BlockchainApp.Source.WIndows.MainWindow"
   mc:Ignorable="d"
@@ -58,11 +56,11 @@
                 <Image Source="../../Resources/Icons/Icon.png"></Image>
             </Grid>
             <Label x:Name="lblWindowTitle" FontSize="12" Content="ExampleBlockchain" HorizontalAlignment="Left" Margin="30,0,0,0" VerticalAlignment="Top" Height="30" VerticalContentAlignment="Center" Grid.Column="0" />
-            <Label x:Name="lblVersion" FontSize="12" Content="v1.0" HorizontalAlignment="Right" Margin="0,0,95,0" VerticalAlignment="Top" Height="30" VerticalContentAlignment="Center" Grid.Column="1"/>
+            <Label x:Name="lblVersion" FontSize="12" Content="v1.01" HorizontalAlignment="Right" Margin="0,0,95,0" VerticalAlignment="Top" Height="30" VerticalContentAlignment="Center" Grid.Column="1"/>
             <!--<Button x:Name="btnSizeToContent" Style="{StaticResource MyClearButtonStyle}" Content="{iconPacks:Modern AxisThree}" ToolTip="Size to Content" Click="btnSizeToContent_Click" MouseEnter="btnSizeToContent_MouseEnter" MouseLeave="btnSizeToContent_MouseLeave" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="0,0,90,0" Grid.Column="1" />-->
-            <Button x:Name="btnMinimizeToTray" Style="{StaticResource MyClearButtonStyle}" Content="{iconPacks:Modern RefreshCounterclockwiseDown}" ToolTip="Tray" Click="btnMinimizeToTray_Click" MouseEnter="btnMinimizeToTray_MouseEnter" MouseLeave="btnMinimizeToTray_MouseLeave" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="0,0,60,0" Grid.Column="1" />
-            <Button x:Name="btnMinimize" Style="{StaticResource MyClearButtonStyle}" Content="{iconPacks:Modern WindowMinimize}" ToolTip="Minimize" Click="btnMinimize_Click" MouseEnter="btnMinimize_MouseEnter" MouseLeave="btnMinimize_MouseLeave" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="0,0,30,0" Grid.Column="1" />
-            <Button x:Name="btnClose" Style="{StaticResource MyClearButtonStyle}" Content="{iconPacks:Modern Close}" ToolTip="Close" Click="btnClose_Click" MouseEnter="btnClose_MouseEnter" MouseLeave="btnClose_MouseLeave" VerticalAlignment="Center" HorizontalAlignment="Right" Grid.Column="1" Margin="0,0,0,0" />
+            <Button x:Name="btnMinimizeToTray" Style="{StaticResource MyClearButtonStyle}" Content="{iconPacks:Modern RefreshCounterclockwiseDown}" ToolTip="Tray" Click="btnMinimizeToTray_Click" MouseEnter="btnMinimizeToTray_MouseEnter" MouseLeave="btnMinimizeToTray_MouseLeave" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="0,0,60,0" Grid.Column="1" Foreground="White" />
+            <Button x:Name="btnMinimize" Style="{StaticResource MyClearButtonStyle}" Content="{iconPacks:Modern WindowMinimize}" ToolTip="Minimize" Click="btnMinimize_Click" MouseEnter="btnMinimize_MouseEnter" MouseLeave="btnMinimize_MouseLeave" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="0,0,30,0" Grid.Column="1" Foreground="White" />
+            <Button x:Name="btnClose" Style="{StaticResource MyClearButtonStyle}" Content="{iconPacks:Modern Close}" ToolTip="Close" Click="btnClose_Click" MouseEnter="btnClose_MouseEnter" MouseLeave="btnClose_MouseLeave" VerticalAlignment="Center" HorizontalAlignment="Right" Grid.Column="1" Margin="0,0,0,0" Foreground="White" />
         </Grid>
 
         <Grid x:Name="gridMain" Margin="10,40,10,10" ScrollViewer.VerticalScrollBarVisibility="Auto" ScrollViewer.HorizontalScrollBarVisibility="Auto" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Grid.ColumnSpan="3">
@@ -83,7 +81,7 @@
                     </controls:TilesMenu.Options>
                 </controls:TilesMenu>
 
-                <Grid Style="{StaticResource GridStyle}" x:Name="gridDashboardMainTab" Visibility="Collapsed" Width="760" Height="415">
+                <Grid Style="{StaticResource GridStyle}" x:Name="gridDashboardMainTab" Visibility="Visible" Width="760" Height="415">
 
                     <Label x:Name="lblAddress" Content="Address:" HorizontalAlignment="Left" Margin="0,0,0,0" VerticalAlignment="Top" Height="30" VerticalContentAlignment="Center"/>
                     <TextBox x:Name="txtAddress" VerticalContentAlignment="Top" HorizontalAlignment="Left" Tag="Address..."  VerticalAlignment="Top" Width="485" Margin="100,0,0,0" IsReadOnly="True"/>
@@ -103,9 +101,9 @@
                     <TextBox x:Name="txtBalance" VerticalContentAlignment="Top" HorizontalAlignment="Left" Tag="Balance..."  VerticalAlignment="Top" Width="485" Margin="100,105,0,0" IsReadOnly="True" HorizontalContentAlignment="Right"/>
                     <Button x:Name="btnCopyBalance" Content="{iconPacks:Modern PageCopy}" HorizontalAlignment="Left" VerticalAlignment="Top" Height="30" Width="30" Click="btnCopyBalance_Click" Margin="590,105,0,0" />
 
-                    <ig:XamRadialGauge x:Name="xrgPeers" Margin="625,0,0,0" Height="135" Width="135" Value="0" MaximumValue="20" />
-                    <Label x:Name="lblPeersCount" Content="0" FontSize="14" HorizontalAlignment="Left" Margin="625,94,0,0" VerticalAlignment="Top" Height="18" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Width="135"/>
-                    <Label x:Name="lblPeersDescription" Content="Peers" FontSize="12" HorizontalAlignment="Left" Margin="625,112,0,0" VerticalAlignment="Top" Height="16" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Width="135"/>
+                    <ProgressBar x:Name="xrgPeers" Margin="625,0,0,0" Style="{StaticResource ProgressBarStyle}" Height="135" Width="135" Value="0" Maximum="20" Minimum="0" BorderBrush="Green" Background="#101010" Foreground="White" />
+                    <!--<Label x:Name="lblPeersCount" Content="0" FontSize="14" HorizontalAlignment="Left" Margin="625,94,0,0" VerticalAlignment="Top" Height="18" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Width="135"/>-->
+                    <Label x:Name="lblPeersDescription" Content="Peers" FontSize="16" HorizontalAlignment="Left" Margin="625,74,0,0" VerticalAlignment="Top" Height="24" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Width="135"/>
 
                     <DataGrid x:Name="gvTransactions" PreviewKeyDown="gvTransactions_PreviewKeyDown" ClipboardCopyMode="None" SnapsToDevicePixels="True" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0,140,0,0" AutoGenerateColumns="False" Width="760" Height="275" MaxHeight="250" AllowDrop="True" SelectionMode="Extended" Background="Transparent" BorderThickness="0" CanUserDeleteRows="false" CanUserAddRows="false" CanUserSortColumns="False" HorizontalScrollBarVisibility="Disabled">
                         <DataGrid.Columns>
@@ -138,19 +136,19 @@
                 <Grid Style="{StaticResource GridStyle}" x:Name="gridSendMainTab" Visibility="Collapsed" Width="760" Height="415">
 
                     <Button x:Name="btnSend" Content="Send" HorizontalAlignment="Left" VerticalAlignment="Top" Height="30" Width="100" Margin="0,0,0,0" Click="btnSend_Click" />
-                    <ige:XamCurrencyEditor x:Name="xceAmountToSend" Height="30" Width="140" Margin="105,0,0,0" ></ige:XamCurrencyEditor>
+                    <TextBox x:Name="xceAmountToSend" Height="30" Width="140" Margin="105,0,0,0" ></TextBox>
                     <Label x:Name="lblSendToDescription" Content="to:" HorizontalAlignment="Left" Margin="250,0,0,0" VerticalAlignment="Top" Height="30" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Width="20"/>
                     <TextBox x:Name="txtRecipientAddress" VerticalContentAlignment="Top" HorizontalAlignment="Left" Tag="Recipient Address..."  VerticalAlignment="Top" Width="450" Margin="275,0,0,0" IsReadOnly="False" />
                     <Button x:Name="btnRecipientGenerateAddress" Content="{iconPacks:Modern Refresh}" HorizontalAlignment="Left" VerticalAlignment="Top" Height="30" Width="30" Click="btnRecipientGenerateAddress_Click" Margin="730,0,0,0" />
 
-                    <Label x:Name="lblTransactionStatus" Content="--- --- ---" Visibility="Collapsed" HorizontalAlignment="Left" Margin="0,35,0,0" VerticalAlignment="Top" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Width="760" Height="60" FontSize="16" Background="Green"/>
+                    <Label x:Name="lblTransactionStatus" Content="--- --- ---" Visibility="Collapsed" HorizontalAlignment="Left" Margin="0,35,0,0" VerticalAlignment="Top" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Width="760" Height="60" FontSize="16" Background="Green" Foreground="White" />
 
                 </Grid>
 
                 <Grid Style="{StaticResource GridStyle}" x:Name="gridMineMainTab" Visibility="Collapsed" Width="760" Height="415">
 
                     <Button x:Name="btnMineTransactions" Content="Mine Transactions" HorizontalAlignment="Left" VerticalAlignment="Top" Height="30" Width="140" Margin="0,0,0,0" Click="btnMineTransactions_Click" />
-                    <Label x:Name="lblMineTransactionsStatus" Content="--- --- ---" Visibility="Collapsed" HorizontalAlignment="Left" Margin="0,35,0,0" VerticalAlignment="Top" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Width="760" Height="60" FontSize="16" Background="Red"/>
+                    <Label x:Name="lblMineTransactionsStatus" Content="--- --- ---" Visibility="Collapsed" HorizontalAlignment="Left" Margin="0,35,0,0" VerticalAlignment="Top" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Width="760" Height="60" FontSize="16" Background="Red" Foreground="White"/>
                     <Grid Style="{StaticResource GridStyle}" x:Name="gridMineTransactionsLoadingScreen" Visibility="Visible" Width="760" Height="315" Margin="0,100,0,0"></Grid>
 
                 </Grid>
@@ -183,19 +181,19 @@
                     <ComboBox x:Name="ddlRequests" HorizontalAlignment="Left" Margin="105,35,0,0" VerticalAlignment="Top" Width="150" Height="30" SelectionChanged="ddlRequests_SelectionChanged" />
 
                     <Label x:Name="lblQueryId" Content="/{Id}:" HorizontalAlignment="Left" Margin="0,70,0,0" VerticalAlignment="Top" Height="30" VerticalContentAlignment="Center" Width="100"/>
-                    <ige:XamNumericEditor x:Name="xneQueryId" VerticalContentAlignment="Top" HorizontalAlignment="Left" VerticalAlignment="Top" Width="150" Margin="105,70,0,0" IsReadOnly="False" />
+                    <TextBox x:Name="xneQueryId" VerticalContentAlignment="Top" HorizontalAlignment="Left" VerticalAlignment="Top" Width="150" Margin="105,70,0,0" IsReadOnly="False" />
 
                     <Button x:Name="btnSendRequest" Content="Send request" HorizontalAlignment="Left" VerticalAlignment="Top" Height="30" Width="100" Click="btnSendRequest_Click" Margin="155,105,0,0" />
 
-                    <Grid Style="{StaticResource GridStyle}" x:Name="gridMineArtificial_ApiTest" Margin="260,0,0,0" Visibility="Visible">
-                        <ige:XamCurrencyEditor x:Name="xceTransaction1Amount_MineArtificial_ApiTest" Height="30" Width="150" Margin="0,0,0,0" />
-                        <TextBox x:Name="txtTransaction1Recipient_MineArtificial_ApiTest" VerticalContentAlignment="Top" HorizontalAlignment="Left" Tag="Recipient..."  VerticalAlignment="Top" Width="340" Margin="155,0,0,0" IsReadOnly="False" />
-                        <ige:XamCurrencyEditor x:Name="xceTransaction2Amount_MineArtificial_ApiTest" Height="30" Width="150" Margin="0,35,0,0" />
-                        <TextBox x:Name="txtTransaction2Recipient_MineArtificial_ApiTest" VerticalContentAlignment="Top" HorizontalAlignment="Left" Tag="Recipient..."  VerticalAlignment="Top" Width="340" Margin="155,35,0,0" IsReadOnly="False" />
-                        <ige:XamCurrencyEditor x:Name="xceTransaction3Amount_MineArtificial_ApiTest" Height="30" Width="150" Margin="0,70,0,0" />
-                        <TextBox x:Name="txtTransaction3Recipient_MineArtificial_ApiTest" VerticalContentAlignment="Top" HorizontalAlignment="Left" Tag="Recipient..."  VerticalAlignment="Top" Width="340" Margin="155,70,0,0" IsReadOnly="False" />
-                        <ige:XamCurrencyEditor x:Name="xceTransaction4Amount_MineArtificial_ApiTest" Height="30" Width="150" Margin="0,105,0,-0.057" />
-                        <TextBox x:Name="txtTransaction4Recipient_MineArtificial_ApiTest" VerticalContentAlignment="Top" HorizontalAlignment="Left" Tag="Recipient..."  VerticalAlignment="Top" Width="340" Margin="155,105,0,0" IsReadOnly="False" />
+                    <Grid Style="{StaticResource GridStyle}" x:Name="gridMineArtificial_ApiTest" Margin="260,0,0,0" Visibility="Collapsed">
+                        <TextBox x:Name="xceTransaction1Amount_MineArtificial_ApiTest" Height="30" Width="150" Margin="0,0,0,0" />
+                        <TextBox x:Name="txtTransaction1Recipient_MineArtificial_ApiTest" VerticalContentAlignment="Top" HorizontalAlignment="Left" Tag="Recipient..."  VerticalAlignment="Top" Width="345" Margin="155,0,0,0" IsReadOnly="False" />
+                        <TextBox x:Name="xceTransaction2Amount_MineArtificial_ApiTest" Height="30" Width="150" Margin="0,35,0,0" />
+                        <TextBox x:Name="txtTransaction2Recipient_MineArtificial_ApiTest" VerticalContentAlignment="Top" HorizontalAlignment="Left" Tag="Recipient..."  VerticalAlignment="Top" Width="345" Margin="155,35,0,0" IsReadOnly="False" />
+                        <TextBox x:Name="xceTransaction3Amount_MineArtificial_ApiTest" Height="30" Width="150" Margin="0,70,0,0" />
+                        <TextBox x:Name="txtTransaction3Recipient_MineArtificial_ApiTest" VerticalContentAlignment="Top" HorizontalAlignment="Left" Tag="Recipient..."  VerticalAlignment="Top" Width="345" Margin="155,70,0,0" IsReadOnly="False" />
+                        <TextBox x:Name="xceTransaction4Amount_MineArtificial_ApiTest" Height="30" Width="150" Margin="0,105,0,0" />
+                        <TextBox x:Name="txtTransaction4Recipient_MineArtificial_ApiTest" VerticalContentAlignment="Top" HorizontalAlignment="Left" Tag="Recipient..."  VerticalAlignment="Top" Width="345" Margin="155,105,0,0" IsReadOnly="False" />
                     </Grid>
 
                     <Grid Style="{StaticResource GridStyle}" x:Name="gridSend_ApiTest" Margin="260,0,0,0" Visibility="Collapsed">
@@ -204,14 +202,14 @@
                         <Button x:Name="btnRecipientGenerateAddress_Send_ApiTest" Content="{iconPacks:Modern Refresh}" HorizontalAlignment="Left" VerticalAlignment="Top" Height="30" Width="30" Click="btnRecipientGenerateAddress_Send_ApiTest_Click" Margin="470,0,0,0" />
 
                         <Label x:Name="lblAmount_Send_ApiTest" Content="Amount:" HorizontalAlignment="Left" Margin="0,35,0,0" VerticalAlignment="Top" Height="30" VerticalContentAlignment="Center" Width="100"/>
-                        <ige:XamCurrencyEditor x:Name="xceAmount_Send_ApiTest" Height="30" Width="150" Margin="105,35,0,0" ></ige:XamCurrencyEditor>
+                        <TextBox x:Name="xceAmount_Send_ApiTest" Height="30" Width="150" Margin="105,35,0,0" ></TextBox>
                     </Grid>
 
                     <TextBox x:Name="txtApiTestResponse" FontSize="14" FontFamily="Consolas" VerticalContentAlignment="Top" HorizontalAlignment="Left" Tag="API Response..." VerticalAlignment="Top" Margin="0,140,0,0" IsReadOnly="True" Width="760" Height="275" />
 
                 </Grid>
 
-                <Grid Style="{StaticResource GridStyle}" x:Name="gridDonateAndPuzzleMainTab" Visibility="Visible" Width="760" Height="415">
+                <Grid Style="{StaticResource GridStyle}" x:Name="gridDonateAndPuzzleMainTab" Visibility="Collapsed" Width="760" Height="415">
 
                     <Label x:Name="lblDonate" Content="Donate" Foreground="Blue" HorizontalAlignment="Left" Margin="0,0,0,0" VerticalAlignment="Top" Height="30" VerticalContentAlignment="Center"/>
 

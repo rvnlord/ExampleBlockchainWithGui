@@ -2,7 +2,9 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
+using System.Net.Mime;
 using System.Reflection;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Web.Http;
 using System.Windows;
@@ -11,6 +13,7 @@ using System.Windows.Controls.Primitives;
 using System.Windows.Forms;
 using System.Windows.Input;
 using System.Windows.Media;
+using System.Windows.Threading;
 using BlockchainApp.Source.Common.Extensions;
 using BlockchainApp.Source.Common.Extensions.Collections;
 using BlockchainApp.Source.Common.Utils.TypeUtils;
@@ -217,15 +220,53 @@ namespace BlockchainApp.Source.WIndows
 
         #region - Textbox Events
 
-        private static void TxtAll_GotFocus(object sender, RoutedEventArgs e)
+        private void TxtAll_GotFocus(object sender, RoutedEventArgs e)
         {
-            (sender as TextBox)?.ResetValue();
-            (sender as TextBox)?.ClearValue();
+            var txtBox = (TextBox) sender;
+            var ehs = txtBox.RemoveEventHandlers("GotFocus");
+
+            txtBox.ResetValue().ClearValue();
+
+            if (txtBox.Name.StartsWith("xce"))
+            {
+                txtBox.Text = txtBox.Text.Remove(" EXC");
+                Dispatcher.Invoke(DispatcherPriority.Background, new Action(() =>
+                {
+                    txtBox.Focus();
+                    txtBox.CaretIndex = txtBox.Text.Length;
+                }));
+            }
+
+            txtBox.AddEventHandlers("GotFocus", ehs);
         }
 
         private static void TxtAll_LostFocus(object sender, RoutedEventArgs e)
         {
-            (sender as TextBox)?.ResetValue();
+            var txtBox = (TextBox)sender;
+            var ehs = txtBox.RemoveEventHandlers("LostFocus");
+
+            txtBox.ResetValue();
+
+            if (txtBox.Name.StartsWith("xce"))
+            {
+                var strVal = txtBox.Text;
+                decimal val;
+                if (!Regex.IsMatch(strVal, @"^[+]?([0-9]+(?:[\.][0-9]*)?|\.[0-9]+)$"))
+                    val = 0;
+                else if (strVal.ToDecimal().DecimalPlaces() > 8)
+                    val = (strVal.BeforeFirst(".") + "." + strVal.AfterFirst(".").Take(8)).ToDecimal();
+                else
+                    val = strVal.ToDecimal();
+                val = Math.Min(val, 1000m);
+                txtBox.Text = val + " EXC";
+            }
+
+            txtBox.AddEventHandlers("LostFocus", ehs);
+        }
+
+        private void TxtAll_MouseUp(object sender, MouseButtonEventArgs e)
+        {
+            
         }
 
         #endregion
@@ -293,16 +334,27 @@ namespace BlockchainApp.Source.WIndows
 
         private void SetupTextBoxes()
         {
-            var emptyTextBoxes = this.LogicalDescendants<TextBox>().Where(t => t.Tag != null && t.Text.IsNullOrWhiteSpace());
+            var textBoxes = this.LogicalDescendants<TextBox>().ToArray();
+            var emptyTextBoxes = textBoxes.Where(t => t.Tag != null && t.Text.IsNullOrWhiteSpace()).ToArray();
             foreach (var txtB in emptyTextBoxes)
             {
                 txtB.GotFocus += TxtAll_GotFocus;
                 txtB.LostFocus += TxtAll_LostFocus;
 
-                var currBg = ((SolidColorBrush)txtB.Foreground).Color;
+                var currBg = ((SolidColorBrush) txtB.Foreground).Color;
                 txtB.FontStyle = FontStyles.Italic;
                 txtB.Text = txtB.Tag.ToString();
                 txtB.Foreground = new SolidColorBrush(Color.FromArgb(128, currBg.R, currBg.G, currBg.B));
+            }
+
+            var sces = textBoxes.Where(tb => tb.Name.StartsWith("xce")).ToArray();
+            foreach (var xce in sces)
+            {
+                xce.Text = "0 EXC";
+                xce.GotFocus += TxtAll_GotFocus;
+                xce.LostFocus += TxtAll_LostFocus;
+                xce.MouseUp += TxtAll_MouseUp;
+                xce.TextAlignment = TextAlignment.Right;
             }
         }
 

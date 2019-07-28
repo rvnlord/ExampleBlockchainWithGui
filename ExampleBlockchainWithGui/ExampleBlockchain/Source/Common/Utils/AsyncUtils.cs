@@ -9,7 +9,6 @@ using System.Windows.Shapes;
 using BlockchainApp.Source.Common.Extensions;
 using BlockchainApp.Source.Common.Extensions.Collections;
 using BlockchainApp.Source.Common.Utils.TypeUtils;
-using Infragistics.Controls.Interactions;
 using MahApps.Metro.Controls;
 using MahApps.Metro.Controls.Dialogs;
 using MoreLinq;
@@ -107,9 +106,15 @@ namespace BlockchainApp.Source.Common.Utils
                 Name = "prLoaderContainer"
             };
 
-            var loader = new XamBusyIndicator
+            var loader = new ProgressRing
             {
-                Name = "prLoader",
+                Foreground = (Brush)control.LogicalAncestor<Window>().FindResource("AccentColorBrush"),
+                VerticalAlignment = VerticalAlignment.Center,
+                HorizontalAlignment = HorizontalAlignment.Center,
+                Width = 80,
+                Height = 80,
+                IsActive = true,
+                Name = "prLoader"
             };
 
             var status = new TextBlock
@@ -128,7 +133,7 @@ namespace BlockchainApp.Source.Common.Utils
             Panel.SetZIndex(loader, zIndex + 1);
             Panel.SetZIndex(status, zIndex + 1);
 
-            control.Children.AddRange(new FrameworkElement[] { rect, loader, status });
+            control.Children.AddRange(new FrameworkElement[] { rect, loader, status }); // 
         }
 
         public static void HideLoader(Panel control)
@@ -152,7 +157,7 @@ namespace BlockchainApp.Source.Common.Utils
             {
                 return new LoaderSpinnerWrapper
                 {
-                    LoaderControl = wnd.LogicalDescendants<XamBusyIndicator>().First(c => c.Name == "prLoader"),
+                    LoaderControl = wnd.LogicalDescendants<ProgressRing>().First(c => c.Name == "prLoader"),
                     LoaderStatus = wnd.LogicalDescendants<TextBlock>().First(c => c.Name == "prLoaderStatus")
                 };
             });
@@ -174,7 +179,7 @@ namespace BlockchainApp.Source.Common.Utils
 
     public class LoaderSpinnerWrapper
     {
-        public XamBusyIndicator LoaderControl { get; set; }
+        public ProgressRing LoaderControl { get; set; }
         public TextBlock LoaderStatus { get; set; }
     }
 }

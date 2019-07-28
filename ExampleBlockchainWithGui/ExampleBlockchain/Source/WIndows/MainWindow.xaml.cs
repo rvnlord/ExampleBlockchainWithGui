@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
@@ -9,8 +8,6 @@ using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
 using BlockchainApp.Source.Clients.PeersClient;
-using BlockchainApp.Source.Clients.PeersClient.Responses;
-using BlockchainApp.Source.Common;
 using BlockchainApp.Source.Common.Converters;
 using BlockchainApp.Source.Common.Extensions;
 using BlockchainApp.Source.Common.Extensions.Collections;
@@ -22,7 +19,6 @@ using BlockchainApp.Source.Models;
 using BlockchainApp.Source.Models.ViewModels;
 using BlockchainApp.Source.Models.Wallets;
 using BlockchainApp.Source.Servers;
-using Infragistics.Windows.Editors;
 using MahApps.Metro.Controls;
 using MahApps.Metro.Controls.Dialogs;
 using MahApps.Metro.IconPacks;
@@ -121,8 +117,8 @@ namespace BlockchainApp.Source.WIndows
         {
             Dispatcher.Invoke(() =>
             {
-                xrgPeers.Value = Math.Min(e.PeerCount, xrgPeers.MaximumValue);
-                lblPeersCount.Content = e.PeerCount;
+                xrgPeers.Value = Math.Min(e.PeerCount, xrgPeers.Maximum);
+                //lblPeersCount.Content = e.PeerCount;
 
                 var peerAddresses = _p2pServer.ActivePeers.Select(p => p.Address.WsAddressToHttpApiAddress()).OrderBy(a => a).ToArray();
                 var myAddress = _p2pServer.Address.WsAddressToHttpApiAddress();
@@ -190,7 +186,7 @@ namespace BlockchainApp.Source.WIndows
         {
             var currentPrivateKey = _wallet.PrivateKey;
             var iconChangeKey = (PackIconModern) btnChangePrivateKey.Content;
-            var iconRevealKey = (PackIconModern)btnRevealPrivateKey.Content;
+            var iconRevealKey = (PackIconModern) btnRevealPrivateKey.Content;
             var startEditing = iconChangeKey.Kind == PackIconModernKind.DrawMarkerReflection;
             var save = iconChangeKey.Kind == PackIconModernKind.Save;
 
@@ -240,8 +236,10 @@ namespace BlockchainApp.Source.WIndows
 
         private async void btnSend_Click(object sender, RoutedEventArgs e)
         {
+            Keyboard.ClearFocus();
+
             var recipient = txtRecipientAddress.NullifyIfTag().Text;
-            var amountToSend = xceAmountToSend.Value.ToDecimalN() ?? 0;
+            var amountToSend = xceAmountToSend.Text.BeforeFirst(" EXC").ToDecimalN() ?? 0;
             Transaction transaction = null;
 
             await AsyncWithLoader(gridMain, _controlsToDisable, () =>
@@ -288,12 +286,14 @@ namespace BlockchainApp.Source.WIndows
             else
             {
                 lblMineTransactionsStatus.Background = Brushes.Red;
-                lblMineTransactionsStatus.Content = $"No block has been mined";
+                lblMineTransactionsStatus.Content = "No block has been mined";
             }
         }
 
         private async void btnSendRequest_Click(object sender, RoutedEventArgs e)
         {
+            Keyboard.ClearFocus();
+
             txtApiTestResponse.ResetValue(true);
 
             if (ddlPeers.SelectedId() == -1 || ddlRequests.SelectedId() == -1)
@@ -313,7 +313,7 @@ namespace BlockchainApp.Source.WIndows
 
                 if (requestName == nameof(BlockchainApiController.Block))
                 {
-                    var id = xneQueryId.Value.ToIntN() ?? 0;
+                    var id = xneQueryId.Text.ToIntN() ?? 0;
 
                     var blockResponse = await client.BlockAsync(id);
 
@@ -346,12 +346,12 @@ namespace BlockchainApp.Source.WIndows
 
                     foreach (var (xce, txt) in transactionInputControls)
                     {
-                        var amount = xce.Value.ToDecimalN() ?? 0;
+                        var amount = xce.Text.BeforeFirst(" EXC").ToDecimalN() ?? 0;
                         var recipient = txt.NullifyIfTag().Text;
 
                         if (amount <= 0 || recipient.IsNullOrWhiteSpace())
                             continue;
-                        var transaction = new Transaction().CreateAsValid(new CustomWallet().Create(), recipient, amount); // this are requests, reeal transsactions are created by peer/server // OLD: async to prevent 4.7 bug with freezing and "not enough quota" exception on quick button clicking | lock should bee ussed in async context at all times
+                        var transaction = new Transaction().CreateAsValid(new CustomWallet().Create(), recipient, amount); // these are requests, real transactions are created by peer/server // OLD: async to prevent 4.7 bug with freezing and "not enough quota" exception on quick button clicking | lock should bee ussed in async context at all times
                         transactions[transaction.Id] = transaction;
                     }
 
@@ -367,7 +367,7 @@ namespace BlockchainApp.Source.WIndows
                 }
                 else if (requestName == nameof(BlockchainApiController.Send))
                 {
-                    var amount = xceAmount_Send_ApiTest.Value.ToDecimalN() ?? 0;
+                    var amount = xceAmount_Send_ApiTest.Text.BeforeFirst(" EXC").ToDecimalN() ?? 0;
                     var recipient = txtRecipient_Send_ApiTest.NullifyIfTag().Text;
 
                     var transactionResponse = await client.SendAsync(recipient, amount);
@@ -401,19 +401,19 @@ namespace BlockchainApp.Source.WIndows
 
         private void btnRecipientGenerateAddress_Click(object sender, RoutedEventArgs e)
         {
-            xceAmountToSend.Value = RandomUtils.RandomDecimalBetween(1, _wallet.UpdateBalances_TS(_bc, _tp).SpendableBalance);
+            xceAmountToSend.Text = RandomUtils.RandomDecimalBetween(1, _wallet.UpdateBalances_TS(_bc, _tp).SpendableBalance) + " EXC";
             txtRecipientAddress.ClearValue(true).Text = new CustomWallet().Create().Address;
         }
 
         private void btnRecipientGenerateAddress_Send_ApiTest_Click(object sender, RoutedEventArgs e)
         {
-            xceAmount_Send_ApiTest.Value = RandomUtils.RandomDecimalBetween(1, _wallet.UpdateBalances_TS(_bc, _tp).SpendableBalance);
+            xceAmount_Send_ApiTest.Text = RandomUtils.RandomDecimalBetween(1, _wallet.UpdateBalances_TS(_bc, _tp).SpendableBalance) + " EXC";
             txtRecipient_Send_ApiTest.ClearValue(true).Text = new CustomWallet().Create().Address;
         }
 
         private void ddlRequests_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            xneQueryId.Value = null;
+            xneQueryId.Text = string.Empty;
 
             var selectedItem = ddlRequests.SelectedItem();
             var gridsApiTest = gridHttpApiTestMainTab.LogicalDescendants<Grid>().Where(g => g.Name.EndsWith("_ApiTest")).ToArray();
@@ -431,13 +431,13 @@ namespace BlockchainApp.Source.WIndows
 
                     foreach (var (xce, txt) in transactionInputControls)
                     {
-                        xce.Value = RandomUtils.RandomDecimalBetween(1, 1000).Round(8);
+                        xce.Text = RandomUtils.RandomDecimalBetween(1, 1000).Round(8) + " EXC";
                         txt.ClearValue(true).Text = new CustomWallet().Create().Address;
                     }
                 }
                 else if (selectedGrid.Name == nameof(gridSend_ApiTest))
                 {
-                    xceAmount_Send_ApiTest.Value = RandomUtils.RandomDecimalBetween(1, 1000).Round(8);
+                    xceAmount_Send_ApiTest.Text = RandomUtils.RandomDecimalBetween(1, 1000).Round(8) + " EXC";
                     txtRecipient_Send_ApiTest.ClearValue(true).Text = new CustomWallet().Create().Address;
                 }
             }
@@ -446,18 +446,18 @@ namespace BlockchainApp.Source.WIndows
             {
                 if (selectedItem.Text == nameof(BlockchainApiController.Block))
                 {
-                    xneQueryId.Value = RandomUtils.RandomIntBetween(0, 10);
+                    xneQueryId.Text = RandomUtils.RandomIntBetween(0, 10).ToString();
                 }
             }
 
 
         }
 
-        private Tuple<XamCurrencyEditor, TextBox>[] GetMineArtificialAPiTestInputControls()
+        private Tuple<TextBox, TextBox>[] GetMineArtificialAPiTestInputControls()
         {
-            return gridHttpApiTestMainTab.LogicalDescendants<XamCurrencyEditor>()
+            return gridHttpApiTestMainTab.LogicalDescendants<TextBox>()
                 .Where(xce => xce.Name.StartsWith("xceTransaction") && xce.Name.EndsWith("Amount_MineArtificial_ApiTest"))
-                .Select(xce => new Tuple<XamCurrencyEditor, TextBox>(xce,
+                .Select(xce => new Tuple<TextBox, TextBox>(xce,
                     gridHttpApiTestMainTab.LogicalDescendants<TextBox>().Single(txt =>
                     {
                         var xceId = xce.Name.Between("xceTransaction", "Amount_MineArtificial_ApiTest").ToInt();

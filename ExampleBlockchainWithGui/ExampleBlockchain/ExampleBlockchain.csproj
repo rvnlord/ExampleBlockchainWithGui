@@ -60,26 +60,6 @@
     <Reference Include="HtmlAgilityPack, Version=1.11.3.0, Culture=neutral, PublicKeyToken=bd319b19eaf3b43a, processorArchitecture=MSIL">
       <HintPath>..\packages\HtmlAgilityPack.1.11.3\lib\Net45\HtmlAgilityPack.dll</HintPath>
     </Reference>
-    <Reference Include="InfragisticsWPF4.Controls.Gauges.v18.2, Version=18.2.20182.137, Culture=neutral, PublicKeyToken=7dd5c3163f2cd0cb, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>E:\Program FIles\Infragistics\2018.2\WPF\CLR4.0\Bin\InfragisticsWPF4.Controls.Gauges.v18.2.dll</HintPath>
-    </Reference>
-    <Reference Include="InfragisticsWPF4.DataVisualization.v18.2, Version=18.2.20182.137, Culture=neutral, PublicKeyToken=7dd5c3163f2cd0cb, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>E:\Program FIles\Infragistics\2018.2\WPF\CLR4.0\Bin\InfragisticsWPF4.DataVisualization.v18.2.dll</HintPath>
-    </Reference>
-    <Reference Include="InfragisticsWPF4.Editors.v18.2, Version=18.2.20182.137, Culture=neutral, PublicKeyToken=7dd5c3163f2cd0cb, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>E:\Program FIles\Infragistics\2018.2\WPF\CLR4.0\Bin\InfragisticsWPF4.Editors.v18.2.dll</HintPath>
-    </Reference>
-    <Reference Include="InfragisticsWPF4.Themes.MetroDark.v18.2, Version=18.2.20182.137, Culture=neutral, PublicKeyToken=7dd5c3163f2cd0cb, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>E:\Program FIles\Infragistics\2018.2\WPF\CLR4.0\Bin\InfragisticsWPF4.Themes.MetroDark.v18.2.dll</HintPath>
-    </Reference>
-    <Reference Include="InfragisticsWPF4.v18.2, Version=18.2.20182.137, Culture=neutral, PublicKeyToken=7dd5c3163f2cd0cb, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>E:\Program FIles\Infragistics\2018.2\WPF\CLR4.0\Bin\InfragisticsWPF4.v18.2.dll</HintPath>
-    </Reference>
     <Reference Include="MahApps.Metro, Version=1.6.5.1, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\MahApps.Metro.1.6.5\lib\net47\MahApps.Metro.dll</HintPath>
     </Reference>
@@ -278,6 +258,12 @@
     <Reference Include="System.Web.Http.Owin, Version=5.2.7.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.AspNet.WebApi.Owin.5.2.7\lib\net45\System.Web.Http.Owin.dll</HintPath>
     </Reference>
+    <Reference Include="System.Windows.Controls.Input.Toolkit, Version=3.5.40128.1, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Infragistics.Themes.MetroDark.Wpf.1.0.0\lib\net40\System.Windows.Controls.Input.Toolkit.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Windows.Controls.Layout.Toolkit, Version=3.5.40128.1, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Infragistics.Themes.MetroDark.Wpf.1.0.0\lib\net40\System.Windows.Controls.Layout.Toolkit.dll</HintPath>
+    </Reference>
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Windows.Interactivity, Version=4.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\ControlzEx.3.0.2.4\lib\net462\System.Windows.Interactivity.dll</HintPath>
@@ -304,6 +290,9 @@
     <Reference Include="WindowsBase" />
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
+    <Reference Include="WPFToolkit, Version=3.5.40128.1, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Infragistics.Themes.MetroDark.Wpf.1.0.0\lib\net40\WPFToolkit.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <ApplicationDefinition Include="App.xaml">
@@ -327,6 +316,7 @@
     <Compile Include="Source\Clients\PeersClient\Responses\PeersClientResponse.cs" />
     <Compile Include="Source\Common\AutomapperConfiguration.cs" />
     <Compile Include="Source\Common\Converters\CryptographyConverter.cs" />
+    <Compile Include="Source\Common\Converters\ProgressConverter.cs" />
     <Compile Include="Source\Common\Converters\UrlConverter.cs" />
     <Compile Include="Source\Common\Extensions\Collections\ItemCollectionExtensions.cs" />
     <Compile Include="Source\Common\Extensions\Collections\OrderedDictionaryExtensions.cs" />
@@ -374,6 +364,7 @@
     <Compile Include="Source\Common\Utils\TypeUtils\EnumUtils.cs" />
     <Compile Include="Source\Common\Utils\Portutils.cs" />
     <Compile Include="Source\Common\Utils\UtilClasses\ActionStatus.cs" />
+    <Compile Include="Source\Common\Utils\UtilClasses\Arc.cs" />
     <Compile Include="Source\Common\Utils\UtilClasses\DdlItem.cs" />
     <Compile Include="Source\Common\Utils\UtilClasses\InformationSender.cs" />
     <Compile Include="Source\Common\Utils\CryptoUtils.cs" />
@@ -445,23 +436,27 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Page Include="Themes\MetroDark\MetroDark.Theme.Colors.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
     <Page Include="Themes\CustomStyle.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Themes\MetroDark\MetroDark.Styles.xaml">
+    <Page Include="Themes\MetroDark\MetroDark.MSControls.Core.Implicit.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Themes\MetroDark\MetroDark.xamEditors.xaml">
+    <Page Include="Themes\MetroDark\MetroDark.MSControls.Toolkit.Implicit.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Themes\MetroDark\MetroDark.xamGauges.xaml">
+    <Page Include="Themes\MetroDark\Styles.Shared.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Themes\MetroDark\Styles.WPF.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Themes\MetroDark\Theme.Colors.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -520,7 +515,6 @@
   <ItemGroup>
     <Resource Include="IconFox.ico" />
   </ItemGroup>
-  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\packages\Fody.4.0.2\build\Fody.targets" Condition="Exists('..\packages\Fody.4.0.2\build\Fody.targets')" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

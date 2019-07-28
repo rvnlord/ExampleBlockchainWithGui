@@ -1,13 +1,5 @@
-﻿using System.Linq;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Media;
-using System.Windows.Shapes;
-using BlockchainApp.Source.Common.Extensions.Collections;
+﻿using System.Windows.Controls;
 using BlockchainApp.Source.Common.Utils;
-using BlockchainApp.Source.Common.Utils.TypeUtils;
-using Infragistics.Controls.Interactions;
-using MoreLinq;
 
 namespace BlockchainApp.Source.Common.Extensions
 {
